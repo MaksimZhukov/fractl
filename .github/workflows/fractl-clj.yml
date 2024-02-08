@@ -1,6 +1,7 @@
 name: "Fractl clj CI"
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -14,7 +15,7 @@ jobs:
   test_clj:
     strategy:
       matrix:
-        platform: [ubuntu-latest]
+        platform: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.platform }}
 
     steps:
@@ -22,6 +23,8 @@ jobs:
         uses: ikalnytskyi/action-setup-postgres@v4
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          ref: 'e908afba547e9384258aa80d15906ea06c655d5c'
       - name: Prepare java
         uses: actions/setup-java@v3
         with:
